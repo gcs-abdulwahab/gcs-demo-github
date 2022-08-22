@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- CSS -->
+    <style>
+      table,
+      th,
+      td {
+        border: 2px solid black;
+      }
+
+      #myTable {
+        border: 3px solid black;
+        gap: 2px;
+      }
+
+      .row {
+        border: 2px solid green;
+        background-color: rgb(241, 208, 208);
+        font-family: sans-serif;
+      }
+      td {
+        padding: 5px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- HTML -->
+
+    <!-- JavaScript -->
+
+    <script>
+      window.addEventListener("load", () => {
+        // Creating Table Using JavaScript
+        var table = document.createElement("table");
+        table.setAttribute("id", "myTable");
+        document.body.appendChild(table);
+
+        // Fetch data using API
+        fetch(
+          "http://makeup-api.herokuapp.com/api/v1/products.json?brand=maybelline"
+        )
+          .then((response) => response.json())
+          .then((resp) => {
+            resp.forEach((x) => {
+              // Table Rows
+              var tr = document.createElement("tr");
+              tr.setAttribute("class", "row");
+              table.appendChild(tr);
+
+              // Column 1
+              var td = document.createElement("td");
+              var node = document.createTextNode(x.brand);
+              td.appendChild(node);
+              tr.appendChild(td);
+              // Column 2
+              td = document.createElement("td");
+              var node = document.createTextNode(x.name);
+              td.appendChild(node);
+              tr.appendChild(td);
+
+              //Column 3
+              td = document.createElement("td");
+              var node = document.createTextNode(x.price);
+              td.appendChild(node);
+              tr.appendChild(td);
+            });
+          })
+          .catch((err) => console.error(err));
+      });
+    </script>
+  </body>
+</html>
